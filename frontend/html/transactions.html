@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SpendSmart | Transactions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/components/sidebar.css" />
+  <link rel="stylesheet" href="/css/components/topbar.css" />
+  <link rel="stylesheet" href="/css/components/buttons.css" />
+  <link rel="stylesheet" href="/css/components/table.css" />
+  <link rel="stylesheet" href="/css/components/modal.css" />
+  <link rel="stylesheet" href="/css/pages/transactions.css" />
+  <script type="module" src="/js/pages/transactions.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside id="sidebarMount"></aside>
+
+    <section class="content-area">
+      <div id="topbarMount"></div>
+
+      <main class="page-content">
+        <section class="dark-surface">
+          <div class="dark-head">
+            <h1>Transactions</h1>
+            <div class="head-actions">
+              <button id="openTransactionModal" class="teal-btn" type="button">+ New transaction</button>
+              <button class="icon-btn" type="button">⌯</button>
+              <button class="icon-btn" type="button">⋯</button>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table class="dark-table">
+              <thead>
+                <tr>
+                  <th>Details</th>
+                  <th>Merchant / Source</th>
+                  <th>Amount</th>
+                  <th>Report</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="transactionsTableBody"></tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </section>
+  </div>
+
+  <div class="modal hidden" id="transactionModal">
+    <div class="modal-card dark-modal">
+      <button class="close-modal" data-close="transactionModal" type="button">✕</button>
+      <h3>Add Transaction</h3>
+      <form id="transactionForm">
+        <label>Amount<input type="number" name="amount" min="0" step="0.01" placeholder="0.00" required /></label>
+        <label>
+          Type
+          <select name="type" required>
+            <option value="expense">Expense</option>
+            <option value="income">Income</option>
+          </select>
+        </label>
+        <label>Category<input type="text" name="category" placeholder="Food, Rent, Salary" required /></label>
+        <label>Merchant / Source<input type="text" name="merchant_or_source" placeholder="Optional" /></label>
+        <label>Description<input type="text" name="description" placeholder="Optional" /></label>
+        <label>Date<input type="date" name="entry_date" required /></label>
+        <label>
+          Payment Method
+          <select name="payment_method">
+            <option value="Cash">Cash</option>
+            <option value="UPI">UPI</option>
+            <option value="Bank Transfer">Bank Transfer</option>
+          </select>
+        </label>
+        <button class="teal-btn full" type="submit">Add Transaction</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,104 @@
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.metric-card {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface);
+  padding: 12px 16px;
+  display: grid;
+  gap: 4px;
+}
+
+.metric-card p {
+  color: #667287;
+  font-weight: 600;
+}
+
+.metric-card h3 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(24px, 2vw, 32px);
+  line-height: 1.05;
+}
+
+.metric-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+}
+
+.metric-icon.mint {
+  background: #d7f8ea;
+  color: #1f9e63;
+}
+
+.metric-icon.rose {
+  background: #ffe3ea;
+  color: #cb4368;
+}
+
+.metric-icon.blue {
+  background: #dde4ff;
+  color: #4e5ed5;
+}
+
+.metric-icon.lilac {
+  background: #ece4ff;
+  color: #7d4cd9;
+}
+
+#expenseTrendChart {
+  height: 160px !important;
+}
+
+#categoryChart {
+  height: 160px !important;
+}
+
+#statisticsChart {
+  height: 160px !important;
+}
+
+.recent-list {
+  display: grid;
+  gap: 10px;
+}
+
+.recent-item {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  padding: 10px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.recent-item h4 {
+  font-size: 15px;
+}
+
+.recent-item p {
+  color: #707a8f;
+  font-size: 13px;
+}
+
+@media (max-width: 1240px) {
+  .metric-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .metric-grid {
+    grid-template-columns: 1fr;
+  }
+}

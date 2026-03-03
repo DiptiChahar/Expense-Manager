@@ -1,0 +1,88 @@
+.page-content > .panel {
+  margin-bottom: 12px;
+}
+
+.expense-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.expense-card {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #fcfdff;
+  overflow: hidden;
+}
+
+.expense-card-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 12px;
+  border-bottom: 1px solid #e2e7f1;
+}
+
+.expense-info {
+  display: flex;
+  gap: 10px;
+}
+
+.expense-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: #e9edf4;
+  color: #5b677e;
+  display: grid;
+  place-items: center;
+}
+
+.expense-card-head h4 {
+  font-size: 17px;
+}
+
+.expense-total {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 31px;
+  line-height: 1;
+  margin-top: 2px;
+}
+
+.expense-trend {
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.expense-trend.up {
+  color: #db5539;
+}
+
+.expense-trend.down {
+  color: #1f965d;
+}
+
+.expense-lines {
+  padding: 10px 12px;
+  display: grid;
+  gap: 8px;
+}
+
+.expense-line {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 14px;
+}
+
+.expense-line small {
+  color: #7b8598;
+}
+
+@media (max-width: 1080px) {
+  .expense-grid {
+    grid-template-columns: 1fr;
+  }
+}

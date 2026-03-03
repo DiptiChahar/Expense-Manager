@@ -1,0 +1,115 @@
+.dark-table,
+.light-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.dark-table th,
+.dark-table td {
+  text-align: left;
+  padding: 15px 12px;
+}
+
+.dark-table thead {
+  border-bottom: 1px solid #242c40;
+  color: #97a0bb;
+}
+
+.dark-table tbody tr:nth-child(odd) {
+  background: var(--dark-row-a);
+}
+
+.dark-table tbody tr:nth-child(even) {
+  background: var(--dark-row-b);
+}
+
+.dark-table td {
+  color: #eaf0ff;
+  border-bottom: 1px solid #20273b;
+}
+
+.dark-table td:nth-child(3),
+.dark-table td:nth-child(4) {
+  font-family: "Space Grotesk", sans-serif;
+}
+
+.tx-detail {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tx-detail small {
+  color: #97a2bf;
+}
+
+.tx-check {
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
+  border: 1px solid #4b556f;
+  background: #59637a;
+  display: inline-grid;
+  place-items: center;
+  font-size: 11px;
+  color: #53f4d0;
+}
+
+.tx-dot {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 13px;
+}
+
+.tx-dot.income {
+  background: rgba(41, 168, 159, 0.25);
+  color: #69eee5;
+}
+
+.tx-dot.expense {
+  background: rgba(212, 88, 111, 0.26);
+  color: #ffa5b8;
+}
+
+.status-pill {
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 700;
+  display: inline-flex;
+}
+
+.status-pill.submitted {
+  background: linear-gradient(90deg, #6a30e8, #4f23d8);
+  color: #f7f1ff;
+}
+
+.status-pill.not_submitted {
+  background: #a52379;
+  color: #ffeaf7;
+}
+
+.light-table th,
+.light-table td {
+  text-align: left;
+  padding: 16px 12px;
+}
+
+.light-table thead {
+  border-bottom: 1px solid var(--border);
+}
+
+.light-table tbody tr {
+  border-bottom: 1px solid #e2e7f1;
+}
+
+.light-table tbody tr:nth-child(odd) {
+  background: #ffffff;
+}
+
+.light-table tbody tr:nth-child(even) {
+  background: #f9fafd;
+}

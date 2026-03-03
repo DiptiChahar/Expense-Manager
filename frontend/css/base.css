@@ -1,0 +1,144 @@
+:root {
+  --bg-outside: #0f1219;
+  --app-bg: #d4d7de;
+  --surface: #f7f8fb;
+  --border: #d8dde8;
+  --text: #222631;
+  --muted: #798196;
+  --sidebar-grad: linear-gradient(180deg, #101216 0%, #171c24 56%, #172233 100%);
+  --accent: #29a89f;
+  --accent-soft: rgba(41, 168, 159, 0.2);
+  --success: #1f9b61;
+  --danger: #d4566e;
+  --dark-surface: #06080d;
+  --dark-row-a: #121722;
+  --dark-row-b: #181e2b;
+  --dark-line: #22293d;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  background: radial-gradient(circle at 85% -20%, #2a3142 0%, var(--bg-outside) 62%);
+  font-family: "Manrope", sans-serif;
+  color: var(--text);
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  margin: 0;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+#sidebarMount,
+#topbarMount {
+  display: contents;
+}
+
+.app-shell {
+  height: 100vh;
+  width: min(1860px, 100vw);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 305px 1fr;
+  background: var(--app-bg);
+  overflow: hidden;
+}
+
+.content-area {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  min-width: 0;
+  min-height: 0;
+}
+
+.page-content {
+  padding: 8px 16px;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+.view-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.view-head h1 {
+  font-size: clamp(24px, 2.8vw, 36px);
+  line-height: 1.05;
+  letter-spacing: -0.5px;
+  font-weight: 800;
+}
+
+.view-head p {
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+.amount-plus {
+  color: var(--success);
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 700;
+}
+
+.amount-minus {
+  color: var(--danger);
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 700;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 1360px) {
+  .app-shell {
+    grid-template-columns: 260px 1fr;
+  }
+}
+
+@media (max-width: 1080px) {
+  .app-shell {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .page-content {
+    padding: 14px;
+  }
+
+  .view-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

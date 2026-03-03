@@ -1,0 +1,47 @@
+.panel {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface);
+  padding: 10px 14px;
+  animation: fadeIn 0.28s ease;
+}
+
+.panel-grid {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.panel-grid.two-col {
+  grid-template-columns: 1.55fr 1fr;
+}
+
+.panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.panel-head h2 {
+  font-size: clamp(18px, 1.8vw, 24px);
+  letter-spacing: -0.2px;
+  font-weight: 800;
+}
+
+.panel-head span {
+  color: #7b8598;
+  font-size: 13px;
+}
+
+canvas {
+  width: 100% !important;
+  max-height: 180px;
+}
+
+@media (max-width: 1360px) {
+  .panel-grid.two-col {
+    grid-template-columns: 1fr;
+  }
+}

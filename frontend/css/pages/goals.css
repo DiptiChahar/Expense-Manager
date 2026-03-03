@@ -1,0 +1,84 @@
+.goal-hero {
+  display: grid;
+  gap: 10px;
+}
+
+.goal-main {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 16px;
+}
+
+.goal-label {
+  font-weight: 700;
+  color: #5d6a82;
+}
+
+.goal-main strong {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 34px;
+}
+
+.goal-sub {
+  color: #707b8f;
+}
+
+.goal-meter {
+  width: 128px;
+  height: 128px;
+  border-radius: 50%;
+  position: relative;
+  background: conic-gradient(var(--accent) var(--progress), #d9dee8 0deg);
+}
+
+.goal-meter::after {
+  content: "";
+  position: absolute;
+  inset: 15px;
+  border-radius: 50%;
+  background: #f7f9fb;
+}
+
+.goal-meter span {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  z-index: 1;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.goal-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.goal-card {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #ffffff;
+  padding: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.goal-card h4 {
+  font-size: 16px;
+  margin-bottom: 3px;
+}
+
+.goal-card p {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 30px;
+}
+
+@media (max-width: 1080px) {
+  .goal-cards {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SpendSmart | Bills</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/components/sidebar.css" />
+  <link rel="stylesheet" href="/css/components/topbar.css" />
+  <link rel="stylesheet" href="/css/components/buttons.css" />
+  <link rel="stylesheet" href="/css/components/panel.css" />
+  <link rel="stylesheet" href="/css/components/table.css" />
+  <link rel="stylesheet" href="/css/components/modal.css" />
+  <link rel="stylesheet" href="/css/pages/bills.css" />
+  <script type="module" src="/js/pages/bills.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside id="sidebarMount"></aside>
+
+    <section class="content-area">
+      <div id="topbarMount"></div>
+
+      <main class="page-content">
+        <section class="view-head">
+          <div>
+            <h1>Upcoming Bills</h1>
+            <p>Track due dates and payment plans</p>
+          </div>
+          <button id="openBillModal" class="solid-btn" type="button">+ Add Bill</button>
+        </section>
+
+        <article class="panel">
+          <div class="table-wrap">
+            <table class="light-table bills-table">
+              <thead>
+                <tr>
+                  <th>Due Date</th>
+                  <th>Logo</th>
+                  <th>Item Description</th>
+                  <th>Last Charge</th>
+                  <th>Amount</th>
+                </tr>
+              </thead>
+              <tbody id="billsTableBody"></tbody>
+            </table>
+          </div>
+        </article>
+      </main>
+    </section>
+  </div>
+
+  <div class="modal hidden" id="billModal">
+    <div class="modal-card">
+      <button class="close-modal" data-close="billModal" type="button">✕</button>
+      <h3>Add Bill</h3>
+      <form id="billForm">
+        <label>Vendor<input type="text" name="vendor" required /></label>
+        <label>Amount<input type="number" name="amount" min="0" step="0.01" required /></label>
+        <label>Due Date<input type="date" name="due_date" required /></label>
+        <label>
+          Frequency
+          <select name="frequency" required>
+            <option value="monthly">Monthly</option>
+            <option value="quarterly">Quarterly</option>
+            <option value="yearly">Yearly</option>
+            <option value="one-time">One-time</option>
+          </select>
+        </label>
+        <label>Description<input type="text" name="description" placeholder="Optional" /></label>
+        <button class="solid-btn full" type="submit">Save Bill</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

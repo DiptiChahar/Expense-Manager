@@ -1,0 +1,41 @@
+.dark-surface {
+  border: 1px solid var(--dark-line);
+  border-radius: 14px;
+  background: var(--dark-surface);
+  padding: 18px;
+  color: #edf3ff;
+}
+
+.dark-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.dark-head h1 {
+  font-size: clamp(40px, 4vw, 58px);
+  font-weight: 800;
+  color: #f6fbff;
+  letter-spacing: -0.45px;
+}
+
+.head-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+@media (max-width: 760px) {
+  .dark-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .head-actions {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+  }
+}

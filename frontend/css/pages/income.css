@@ -1,0 +1,15 @@
+.income-summary {
+  margin-bottom: 12px;
+}
+
+.income-summary p {
+  color: #6c778d;
+  margin-bottom: 4px;
+  font-weight: 700;
+}
+
+.income-summary h3 {
+  color: #0f9a61;
+  font-size: 42px;
+  font-family: "Space Grotesk", sans-serif;
+}

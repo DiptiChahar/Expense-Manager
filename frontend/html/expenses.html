@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SpendSmart | Expenses</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/components/sidebar.css" />
+  <link rel="stylesheet" href="/css/components/topbar.css" />
+  <link rel="stylesheet" href="/css/components/buttons.css" />
+  <link rel="stylesheet" href="/css/components/panel.css" />
+  <link rel="stylesheet" href="/css/pages/expenses.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script type="module" src="/js/pages/expenses.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside id="sidebarMount"></aside>
+
+    <section class="content-area">
+      <div id="topbarMount"></div>
+
+      <main class="page-content">
+        <section class="view-head">
+          <div>
+            <h1>Expenses Comparison</h1>
+            <p>Monthly chart and category breakdown</p>
+          </div>
+        </section>
+
+        <article class="panel">
+          <div class="panel-head">
+            <h2>Monthly Comparison</h2>
+            <button class="mini-chip" type="button">Monthly Comparison ▾</button>
+          </div>
+          <canvas id="expensesComparisonChart"></canvas>
+        </article>
+
+        <article class="panel">
+          <div class="panel-head">
+            <h2>Expenses Breakdown</h2>
+            <span>*Compare to last month</span>
+          </div>
+          <div class="expense-grid" id="expenseBreakdown"></div>
+        </article>
+      </main>
+    </section>
+  </div>
+</body>
+</html>

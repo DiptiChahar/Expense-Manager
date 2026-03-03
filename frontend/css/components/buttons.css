@@ -1,0 +1,79 @@
+.ghost-btn,
+.teal-btn,
+.solid-btn,
+.icon-btn,
+.mini-chip,
+.goal-adjust {
+  cursor: pointer;
+}
+
+.ghost-btn {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.04);
+  color: #eef4ff;
+  border-radius: 10px;
+  padding: 12px;
+  font-weight: 700;
+}
+
+.teal-btn,
+.solid-btn {
+  border: 0;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-weight: 700;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.teal-btn:hover,
+.solid-btn:hover {
+  transform: translateY(-1px);
+  opacity: 0.96;
+}
+
+.teal-btn {
+  background: var(--accent);
+  color: #001513;
+}
+
+.solid-btn {
+  background: #0c1838;
+  color: #f3f7ff;
+}
+
+.icon-btn {
+  border: 1px solid #323a4f;
+  border-radius: 8px;
+  background: #111828;
+  color: #d8dff3;
+  padding: 8px 10px;
+}
+
+.mini-chip {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #f0f3f8;
+  color: #646f84;
+  padding: 7px 10px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.goal-adjust {
+  border: 1px solid var(--accent);
+  background: #effdfa;
+  color: #1f8f87;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-weight: 700;
+}
+
+.full {
+  width: 100%;
+}
+
+@media (max-width: 760px) {
+  .solid-btn {
+    width: 100%;
+  }
+}

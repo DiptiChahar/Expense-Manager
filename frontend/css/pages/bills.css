@@ -1,0 +1,70 @@
+.bills-table td {
+  vertical-align: middle;
+}
+
+.bills-table thead th {
+  font-size: 15px;
+  font-weight: 700;
+  color: #2e3648;
+}
+
+.due-badge {
+  width: 80px;
+  border-radius: 11px;
+  border: 1px solid #d7ddea;
+  background: #eceff4;
+  text-align: center;
+  padding: 9px 0;
+}
+
+.due-badge span {
+  display: block;
+  color: #6f7a8d;
+  font-size: 13px;
+}
+
+.due-badge strong {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 36px;
+  line-height: 1;
+}
+
+.vendor-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.vendor-logo {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: #e7ecf4;
+  color: #525f77;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+}
+
+.bill-item-title {
+  font-weight: 800;
+  font-size: 18px;
+  margin-bottom: 2px;
+}
+
+.bill-item-note {
+  color: #768194;
+  font-size: 14px;
+}
+
+.bill-amount {
+  display: inline-flex;
+  min-width: 100px;
+  justify-content: center;
+  border-radius: 10px;
+  border: 1px solid #d7ddea;
+  background: #fdfdff;
+  padding: 10px 14px;
+  font-weight: 800;
+  font-family: "Space Grotesk", sans-serif;
+}
