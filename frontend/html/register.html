@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SpendSmart | Register</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/components/buttons.css" />
+  <link rel="stylesheet" href="/css/pages/register.css" />
+  <script type="module" src="/js/pages/register.js"></script>
+</head>
+<body class="auth-page">
+  <main class="auth-shell">
+    <section class="auth-pane auth-pane-left">
+      <div class="auth-inner">
+        <div class="auth-brand">
+          <div class="auth-brand-icon" aria-hidden="true">↗</div>
+          <h1>SpendSmart</h1>
+          <p>AI-powered expense management</p>
+        </div>
+
+        <section class="auth-card">
+          <h2>Create Account</h2>
+
+          <form id="registerForm" class="auth-form" novalidate>
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" autocomplete="name" required />
+
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" autocomplete="email" required />
+
+            <label for="password">Password</label>
+            <input id="password" name="password" type="password" autocomplete="new-password" required />
+
+            <p id="authError" class="auth-error hidden" role="alert" aria-live="polite"></p>
+
+            <button id="submitButton" class="solid-btn full auth-submit" type="submit">Create Account</button>
+          </form>
+
+          <p class="auth-switch">Already have an account? <a href="/html/login.html">Sign in</a></p>
+        </section>
+      </div>
+    </section>
+
+    <aside class="auth-pane auth-pane-right">
+      <div class="hero-content">
+        <h2>Start your financial journey</h2>
+        <p>Join thousands managing their money smarter with SpendSmart</p>
+        <ul>
+          <li>Free forever</li>
+          <li>Secure &amp; private</li>
+          <li>AI-powered insights</li>
+        </ul>
+      </div>
+    </aside>
+  </main>
+</body>
+</html>

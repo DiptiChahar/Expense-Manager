@@ -25,6 +25,128 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  position: relative;
+}
+
+.tx-filter-wrap {
+  position: relative;
+}
+
+.tx-filter-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 160px;
+  border: 1px solid #33415d;
+  border-radius: 10px;
+  background: #11192a;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.36);
+  padding: 6px;
+  z-index: 30;
+}
+
+.tx-filter-menu.hidden {
+  display: none;
+}
+
+.tx-filter-item {
+  width: 100%;
+  text-align: left;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #d8e0f3;
+  padding: 8px 10px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.tx-filter-item:hover {
+  background: #1d273d;
+  color: #f3f7ff;
+}
+
+.tx-filter-item.active {
+  background: rgba(41, 168, 159, 0.22);
+  color: #88f4db;
+}
+
+.icon-btn[aria-expanded="true"] {
+  border-color: #4d5f85;
+  background: #18263f;
+  color: #eff5ff;
+}
+
+.dark-table tbody tr:hover {
+  background: #1d2435 !important;
+}
+
+.tx-type {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 999px;
+  padding: 5px 10px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.tx-type.income {
+  background: rgba(41, 168, 159, 0.2);
+  color: #67f1cf;
+}
+
+.tx-type.expense {
+  background: rgba(212, 88, 111, 0.2);
+  color: #ff9fb0;
+}
+
+.tx-category {
+  color: #cfd8ef;
+}
+
+.tx-amount {
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 700;
+}
+
+.tx-amount.income {
+  color: #4ce6a5;
+}
+
+.tx-amount.expense {
+  color: #ff7d95;
+}
+
+.tx-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tx-action-btn {
+  border: 1px solid #3a465f;
+  background: #151d2e;
+  color: #d7def1;
+  border-radius: 7px;
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+}
+
+.tx-action-btn.edit:hover {
+  border-color: #8d99b8;
+  color: #eef3ff;
+}
+
+.tx-action-btn.delete:hover {
+  border-color: #d4566e;
+  color: #ff9bad;
+  background: rgba(212, 86, 110, 0.14);
 }
 
 @media (max-width: 760px) {

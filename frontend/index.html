@@ -2,8 +2,18 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="refresh" content="0; url=/html/dashboard.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SpendSmart</title>
+  <script>
+    (function redirectByAuthState() {
+      try {
+        const token = (localStorage.getItem("spendsmart_token") || "").trim();
+        window.location.replace(token ? "/html/dashboard.html" : "/html/login.html");
+      } catch (_error) {
+        window.location.replace("/html/login.html");
+      }
+    })();
+  </script>
 </head>
 <body></body>
 </html>

@@ -1,3 +1,5 @@
+import { getCurrentUser, getUserInitial } from "./auth.js";
+
 function prettyDate() {
   const now = new Date();
   const pretty = now.toLocaleDateString("en-US", {
@@ -53,6 +55,23 @@ function setDateChip() {
   if (node) node.textContent = prettyDate();
 }
 
+async function hydrateSidebarProfile() {
+  const avatarNode = document.getElementById("sidebarAvatar");
+  const nameNode = document.getElementById("sidebarUserName");
+  if (!avatarNode || !nameNode) return;
+
+  const user = await getCurrentUser();
+  if (!user) {
+    avatarNode.textContent = "?";
+    nameNode.textContent = "User";
+    return;
+  }
+
+  const normalizedName = String(user.name || "").trim() || "User";
+  avatarNode.textContent = getUserInitial(normalizedName);
+  nameNode.textContent = normalizedName;
+}
+
 export async function initLayout(activeKey) {
   await Promise.all([
     mountComponent("/components/sidebar.html", "sidebarMount"),
@@ -62,4 +81,5 @@ export async function initLayout(activeKey) {
   setActiveNav(activeKey);
   setDateChip();
   bindSidebarMenu();
+  await hydrateSidebarProfile();
 }

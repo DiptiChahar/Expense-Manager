@@ -13,8 +13,8 @@
   <link rel="stylesheet" href="/css/components/buttons.css" />
   <link rel="stylesheet" href="/css/components/table.css" />
   <link rel="stylesheet" href="/css/components/modal.css" />
-  <link rel="stylesheet" href="/css/pages/transactions.css" />
-  <script type="module" src="/js/pages/transactions.js"></script>
+  <link rel="stylesheet" href="/css/pages/transactions.css?v=tx-table-v5" />
+  <script type="module" src="/js/pages/transactions.js?v=tx-table-v5"></script>
 </head>
 <body>
   <div class="app-shell">
@@ -29,8 +29,25 @@
             <h1>Transactions</h1>
             <div class="head-actions">
               <button id="openTransactionModal" class="teal-btn" type="button">+ New transaction</button>
-              <button class="icon-btn" type="button">⌯</button>
-              <button class="icon-btn" type="button">⋯</button>
+              <div class="tx-filter-wrap">
+                <button
+                  id="transactionsFilterButton"
+                  class="icon-btn"
+                  type="button"
+                  title="Filter: All"
+                  aria-label="Filter: All"
+                  aria-haspopup="menu"
+                  aria-expanded="false"
+                >⌯</button>
+                <div id="transactionsFilterMenu" class="tx-filter-menu hidden" role="menu" aria-label="Transaction filters">
+                  <button class="tx-filter-item active" type="button" data-filter="all" role="menuitem">All</button>
+                  <button class="tx-filter-item" type="button" data-filter="income" role="menuitem">Income</button>
+                  <button class="tx-filter-item" type="button" data-filter="expense" role="menuitem">Expense</button>
+                  <button class="tx-filter-item" type="button" data-filter="this_month" role="menuitem">This Month</button>
+                  <button class="tx-filter-item" type="button" data-filter="last_month" role="menuitem">Last Month</button>
+                </div>
+              </div>
+              <button id="transactionsExportButton" class="icon-btn" type="button" title="Export CSV (Download)" aria-label="Export transactions CSV">⬇</button>
             </div>
           </div>
 
@@ -39,10 +56,11 @@
               <thead>
                 <tr>
                   <th>Details</th>
-                  <th>Merchant / Source</th>
+                  <th>Type</th>
+                  <th>Source</th>
+                  <th>Category</th>
                   <th>Amount</th>
-                  <th>Report</th>
-                  <th>Status</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody id="transactionsTableBody"></tbody>
@@ -56,7 +74,7 @@
   <div class="modal hidden" id="transactionModal">
     <div class="modal-card dark-modal">
       <button class="close-modal" data-close="transactionModal" type="button">✕</button>
-      <h3>Add Transaction</h3>
+      <h3 id="transactionModalTitle">Add Transaction</h3>
       <form id="transactionForm">
         <label>Amount<input type="number" name="amount" min="0" step="0.01" placeholder="0.00" required /></label>
         <label>
@@ -78,7 +96,7 @@
             <option value="Bank Transfer">Bank Transfer</option>
           </select>
         </label>
-        <button class="teal-btn full" type="submit">Add Transaction</button>
+        <button id="transactionSubmitButton" class="teal-btn full" type="submit">Add Transaction</button>
       </form>
     </div>
   </div>
