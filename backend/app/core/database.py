@@ -3,12 +3,15 @@ from contextlib import contextmanager
 import psycopg
 from psycopg.rows import dict_row
 
-from app.core.config import DATABASE_URL
+from app.core.config import DATABASE_URL, DB_LOCK_TIMEOUT_MS, DB_STATEMENT_TIMEOUT_MS
 
 
 @contextmanager
-def get_conn():
-  conn = psycopg.connect(DATABASE_URL, row_factory=dict_row)
+def get_conn(statement_timeout_ms: int | None = None, lock_timeout_ms: int | None = None):
+  effective_statement_timeout = DB_STATEMENT_TIMEOUT_MS if statement_timeout_ms is None else statement_timeout_ms
+  effective_lock_timeout = DB_LOCK_TIMEOUT_MS if lock_timeout_ms is None else lock_timeout_ms
+  options = f"-c statement_timeout={effective_statement_timeout} -c lock_timeout={effective_lock_timeout}"
+  conn = psycopg.connect(DATABASE_URL, row_factory=dict_row, options=options)
   try:
     yield conn
     conn.commit()
@@ -29,3 +32,11 @@ def get_db_identity() -> dict[str, str]:
     "db_user": str(result["db_user"]),
     "schema": str(result["schema"]),
   }
+
+
+def db_ping() -> bool:
+  with get_conn() as conn:
+    with conn.cursor() as cur:
+      cur.execute("SELECT 1 AS db_ok")
+      result = cur.fetchone()
+  return bool(result and result["db_ok"] == 1)

@@ -1,0 +1,19 @@
+"""Transaction domain constants."""
+
+TX_TYPE_INCOME = "income"
+TX_TYPE_EXPENSE = "expense"
+
+TX_STATUS_SUBMITTED = "submitted"
+TX_STATUS_NOT_SUBMITTED = "not_submitted"
+
+DEFAULT_INCOME_CATEGORY = "Income"
+DEFAULT_INCOME_PAYMENT_METHOD = "Bank Transfer"
+
+__all__ = [
+  "DEFAULT_INCOME_CATEGORY",
+  "DEFAULT_INCOME_PAYMENT_METHOD",
+  "TX_STATUS_NOT_SUBMITTED",
+  "TX_STATUS_SUBMITTED",
+  "TX_TYPE_EXPENSE",
+  "TX_TYPE_INCOME",
+]

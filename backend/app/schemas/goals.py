@@ -11,3 +11,14 @@ class GoalCreate(BaseModel):
   due_date: date
   category: str | None = None
   status: Literal["active", "completed", "paused"] = "active"
+
+
+class GoalResponse(BaseModel):
+  id: str
+  name: str
+  target_amount: float
+  achieved_amount: float
+  due_date: str
+  category: str | None = None
+  status: Literal["active", "completed", "paused"]
+  created_at: str

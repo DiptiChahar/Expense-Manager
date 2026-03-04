@@ -12,3 +12,15 @@ class BillCreate(BaseModel):
   description: str | None = None
   last_charge_date: date | None = None
   status: Literal["pending", "paid", "overdue"] = "pending"
+
+
+class BillResponse(BaseModel):
+  id: str
+  vendor: str
+  amount: float
+  due_date: str
+  frequency: str
+  description: str | None = None
+  last_charge_date: str | None = None
+  status: Literal["pending", "paid", "overdue"]
+  created_at: str

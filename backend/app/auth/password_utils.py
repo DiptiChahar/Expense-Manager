@@ -1,0 +1,11 @@
+from passlib.context import CryptContext
+
+_password_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+
+def hash_password(raw_password: str) -> str:
+  return _password_context.hash(raw_password)
+
+
+def verify_password(raw_password: str, password_hash: str) -> bool:
+  return _password_context.verify(raw_password, password_hash)

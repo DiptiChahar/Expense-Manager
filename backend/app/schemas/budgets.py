@@ -8,3 +8,13 @@ class BudgetCreate(BaseModel):
   monthly_limit: float = Field(ge=0)
   month_start: date
   notes: str | None = None
+
+
+class BudgetResponse(BaseModel):
+  id: str
+  category: str
+  monthly_limit: float
+  month_start: str
+  notes: str | None = None
+  created_at: str
+  spent: float | None = None
