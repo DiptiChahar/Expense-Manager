@@ -25,6 +25,12 @@ if not JWT_SECRET_KEY:
 JWT_ALGORITHM = os.getenv("JWT_ALGORITHM", "HS256")
 JWT_EXPIRE_HOURS = int(os.getenv("JWT_EXPIRE_HOURS", "24"))
 
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "").strip()
+OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-5.2").strip()
+OPENAI_API_TIMEOUT_SECONDS = int(os.getenv("OPENAI_API_TIMEOUT_SECONDS", "30"))
+AI_CONTEXT_CACHE_SECONDS = int(os.getenv("AI_CONTEXT_CACHE_SECONDS", "60"))
+AI_CURRENCY_SYMBOL = os.getenv("AI_CURRENCY_SYMBOL", "₹").strip() or "₹"
+
 
 def _parse_bool(value: str | None, default: bool) -> bool:
   if value is None:

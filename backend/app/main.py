@@ -3,6 +3,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.v1.router import api_router
+from app.api.v1.endpoints import ai_chat
 from app.core.config import API_V1_PREFIX, APP_NAME, APP_VERSION, AUTO_APPLY_MIGRATIONS, CORS_ALLOW_ORIGINS, ENV
 from app.core.error_handlers import register_exception_handlers
 from app.core.database import get_db_identity
@@ -40,3 +41,4 @@ def startup() -> None:
   )
 
 app.include_router(api_router, prefix=API_V1_PREFIX)
+app.include_router(ai_chat.router, prefix="/api")

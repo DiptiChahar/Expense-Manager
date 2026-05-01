@@ -10,6 +10,7 @@ from app.core.constants.transactions import TX_TYPE_EXPENSE, TX_TYPE_INCOME
 from app.repositories.transactions_repository import create_transaction, delete_transaction, list_transactions, update_transaction
 from app.schemas.common import OperationStatus
 from app.schemas.transactions import TransactionCreate, TransactionResponse, TransactionUpdate
+from app.services.ai_chat_service import clear_ai_context_cache
 
 logger = logging.getLogger(__name__)
 
@@ -32,6 +33,7 @@ def post_transaction(
   conn: psycopg.Connection = Depends(get_db_conn),
 ) -> dict:
   row = create_transaction(conn, user_id, payload.model_dump())
+  clear_ai_context_cache(user_id)
   logger.info("transaction_created id=%s type=%s", row["id"], row["type"])
   return row
 
@@ -50,6 +52,7 @@ def put_transaction(
       detail={"code": TRANSACTION_NOT_FOUND_CODE, "message": TRANSACTION_NOT_FOUND_MESSAGE},
     )
 
+  clear_ai_context_cache(user_id)
   logger.info("transaction_updated id=%s type=%s", row["id"], row["type"])
   return row
 
@@ -67,5 +70,6 @@ def remove_transaction(
       detail={"code": TRANSACTION_NOT_FOUND_CODE, "message": TRANSACTION_NOT_FOUND_MESSAGE},
     )
 
+  clear_ai_context_cache(user_id)
   logger.info("transaction_deleted id=%s", transaction_id)
   return OperationStatus(status="deleted", id=transaction_id)
