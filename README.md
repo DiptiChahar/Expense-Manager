@@ -12,13 +12,13 @@ The project focuses on clean backend architecture, modular code structure, and s
 * Track income and expenses with categorized transactions.
 * Manage bills, budgets, and financial goals.
 * Dashboard insights for income, expenses, and financial summaries.
+* AI financial assistant with RAG-based analysis of transactions, goals, trends, and spending patterns.
 * Secure JWT authentication with strict user data isolation.
 * Transaction filtering and export capabilities.
 
 **Upcoming Enhancements**
 
 * Machine learning–based expense forecasting (Random Forest, LSTM).
-* AI assistant powered by OpenAI for personalized budgeting insights and spending recommendations.
 
 ---
 
@@ -38,7 +38,7 @@ The project focuses on clean backend architecture, modular code structure, and s
 
 * PostgreSQL
 
-**AI / ML (planned)**
+**AI / ML**
 
 * Random Forest
 * LSTM
@@ -68,6 +68,9 @@ JWT_ALGORITHM=HS256
 JWT_EXPIRE_HOURS=24
 
 OPENAI_API_KEY=<your-openai-key>
+OPENAI_MODEL=gpt-5.2
+AI_CONTEXT_CACHE_SECONDS=60
+AI_CURRENCY_SYMBOL=₹
 
 DB_STATEMENT_TIMEOUT_MS=5000
 DB_LOCK_TIMEOUT_MS=2000

@@ -1,7 +1,7 @@
 import { api, describeApiError, postJson, putJson } from "../core/api.js";
 import { handleUnauthorized, getToken } from "../core/auth.js";
-import { escapeHtml, formatEntryDate, formatMoney, parseDateValue, textOrNull } from "../core/format.js";
-import { initLayout } from "../core/layout.js";
+import { escapeHtml, formatEntryDate, formatMoney, parseDateValue, textOrNull } from "../core/format.js?v=money-v5";
+import { initLayout } from "../core/layout.js?v=layout-v2";
 import { bindModalClose, initModal, setDefaultDateInputs } from "../core/modal.js";
 
 const API_BASE = window.SPENDSMART_API_BASE || "http://127.0.0.1:8000/api/v1";
@@ -21,7 +21,6 @@ const state = {
   transactions: [],
   visibleTransactions: [],
   activeFilter: "all",
-  renderMode: "filter",
   isFilterMenuOpen: false,
   isEditing: false,
   editingTransactionId: null
@@ -68,15 +67,6 @@ function filterTransactions(items, filterKey = state.activeFilter) {
   });
 }
 
-function matchesSearch(item, queryLower) {
-  if (!queryLower) return true;
-  return [item.description, item.category, item.merchant, item.source]
-    .filter(Boolean)
-    .join(" ")
-    .toLowerCase()
-    .includes(queryLower);
-}
-
 function renderRows(items) {
   const body = document.getElementById("transactionsTableBody");
   state.visibleTransactions = items;
@@ -89,6 +79,7 @@ function renderRows(items) {
       const typeLabel = isIncome ? "Income" : "Expense";
       const typeIcon = isIncome ? "📈" : "📉";
       const amountPrefix = isIncome ? "+" : "-";
+      const amountText = `${amountPrefix} ${formatMoney(item.amount)}`;
 
       return `
       <tr>
@@ -105,7 +96,7 @@ function renderRows(items) {
         </td>
         <td>${escapeHtml(side)}</td>
         <td><span class="tx-category">🏷 ${escapeHtml(category)}</span></td>
-        <td><span class="tx-amount ${isIncome ? "income" : "expense"}">${amountPrefix} ${formatMoney(item.amount)}</span></td>
+        <td class="tx-amount ${isIncome ? "income" : "expense"}">${escapeHtml(amountText)}</td>
         <td>
           <div class="tx-actions">
             <button type="button" class="tx-action-btn edit" data-action="edit" data-id="${escapeHtml(item.id)}" title="Edit">✏</button>
@@ -120,36 +111,15 @@ function renderRows(items) {
 }
 
 function renderTransactionsByActiveFilter() {
-  state.renderMode = "filter";
   const rows = filterTransactions(sortedTransactions(state.transactions), state.activeFilter);
   renderRows(rows);
 }
 
-function renderTransactionsBySearch(query = "") {
-  const queryLower = query.trim().toLowerCase();
-  if (!queryLower) {
-    renderTransactionsByActiveFilter();
-    return;
-  }
-  state.renderMode = "search";
-  const rows = sortedTransactions(state.transactions).filter((item) => matchesSearch(item, queryLower));
-  renderRows(rows);
-}
-
 function rerenderCurrentView() {
-  const query = activeSearchQuery().trim();
-  if (state.renderMode === "search" && query) {
-    renderTransactionsBySearch(query);
-    return;
-  }
   renderTransactionsByActiveFilter();
 }
 
 function getRowsForCurrentView() {
-  const query = activeSearchQuery().trim().toLowerCase();
-  if (state.renderMode === "search" && query) {
-    return sortedTransactions(state.transactions).filter((item) => matchesSearch(item, query));
-  }
   return filterTransactions(sortedTransactions(state.transactions), state.activeFilter);
 }
 
@@ -164,10 +134,6 @@ function formatDateInputValue(value) {
   const mm = String(parsed.getMonth() + 1).padStart(2, "0");
   const dd = String(parsed.getDate()).padStart(2, "0");
   return `${yyyy}-${mm}-${dd}`;
-}
-
-function activeSearchQuery() {
-  return document.getElementById("globalSearch")?.value || "";
 }
 
 function setFilterMenuOpen(isOpen) {
@@ -208,11 +174,6 @@ function applyFilter(filterKey) {
   state.activeFilter = filterKey;
   setFilterButtonCopy();
   syncActiveFilterMenu();
-
-  const search = document.getElementById("globalSearch");
-  if (search instanceof HTMLInputElement) {
-    search.value = "";
-  }
   renderTransactionsByActiveFilter();
 }
 
@@ -377,8 +338,7 @@ function exportVisibleTransactions() {
   const csv = `\uFEFF${buildTransactionsCsv(rows)}`;
   const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
   const url = URL.createObjectURL(blob);
-  const activeView = state.renderMode === "search" ? "search" : state.activeFilter;
-  const fileName = `transactions_${activeView}_${todayStamp()}.csv`;
+  const fileName = `transactions_${state.activeFilter}_${todayStamp()}.csv`;
 
   const link = document.createElement("a");
   link.href = url;
@@ -541,12 +501,6 @@ function bindExportControl() {
   });
 }
 
-function bindSearch() {
-  const search = document.getElementById("globalSearch");
-  if (!search) return;
-  search.addEventListener("input", () => renderTransactionsBySearch(search.value));
-}
-
 function bindForm() {
   const form = document.getElementById("transactionForm");
   if (!form) return;
@@ -582,6 +536,17 @@ function bindForm() {
   });
 }
 
+function bindAssistantRefresh() {
+  window.addEventListener("spendsmart:transactions-changed", async () => {
+    try {
+      await loadData();
+      renderTransactionsByActiveFilter();
+    } catch (error) {
+      console.warn(describeApiError(error, "refresh transactions"));
+    }
+  });
+}
+
 async function initPage() {
   try {
     await initLayout("transactions");
@@ -598,7 +563,7 @@ async function initPage() {
 
     await loadData();
     renderTransactionsByActiveFilter();
-    bindSearch();
+    bindAssistantRefresh();
     bindTableActions();
     bindForm();
   } catch (error) {

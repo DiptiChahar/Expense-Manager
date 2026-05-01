@@ -20,8 +20,9 @@
 }
 
 .goal-main strong {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Manrope", sans-serif;
   font-size: 34px;
+  font-variant-numeric: tabular-nums;
 }
 
 .goal-sub {
@@ -86,12 +87,13 @@
 }
 
 .goal-card p {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Manrope", sans-serif;
   font-size: 24px;
   line-height: 1.05;
+  font-variant-numeric: tabular-nums;
 }
 
-.goal-card p span {
+.goal-card p .goal-target {
   color: #778197;
   font-size: 15px;
 }

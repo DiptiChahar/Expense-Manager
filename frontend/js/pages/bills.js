@@ -1,6 +1,6 @@
 import { api, describeApiError, postJson } from "../core/api.js";
-import { capitalize, dayOfMonth, escapeHtml, formatDueDate, formatMoney, parseDateValue, shortMonth, textOrNull } from "../core/format.js";
-import { initLayout } from "../core/layout.js";
+import { capitalize, dayOfMonth, escapeHtml, formatDueDate, formatMoneyHtml, parseDateValue, shortMonth, textOrNull } from "../core/format.js?v=money-v4";
+import { initLayout } from "../core/layout.js?v=layout-v2";
 import { bindModalClose, initModal, setDefaultDateInputs } from "../core/modal.js";
 
 const state = {
@@ -12,9 +12,8 @@ async function loadData() {
   state.bills = Array.isArray(bills) ? bills : [];
 }
 
-function renderBills(query = "") {
+function renderBills() {
   const body = document.getElementById("billsTableBody");
-  const q = query.trim().toLowerCase();
 
   const rows = state.bills
     .slice()
@@ -22,10 +21,6 @@ function renderBills(query = "") {
       const aTime = parseDateValue(a.due_date)?.getTime() ?? 0;
       const bTime = parseDateValue(b.due_date)?.getTime() ?? 0;
       return aTime - bTime;
-    })
-    .filter((bill) => {
-      if (!q) return true;
-      return [bill.vendor, bill.description, bill.frequency].filter(Boolean).join(" ").toLowerCase().includes(q);
     })
     .map((bill) => {
       const dueMonth = shortMonth(bill.due_date);
@@ -51,18 +46,12 @@ function renderBills(query = "") {
           <div class="bill-item-note">${escapeHtml(capitalize(bill.frequency || "monthly"))} billing cycle</div>
         </td>
         <td>${escapeHtml(formatDueDate(bill.last_charge_date))}</td>
-        <td><span class="bill-amount">${formatMoney(bill.amount)}</span></td>
+        <td><span class="bill-amount">${formatMoneyHtml(bill.amount)}</span></td>
       </tr>
       `;
     });
 
   body.innerHTML = rows.length ? rows.join("") : `<tr><td colspan="5">No bills yet.</td></tr>`;
-}
-
-function bindSearch() {
-  const search = document.getElementById("globalSearch");
-  if (!search) return;
-  search.addEventListener("input", () => renderBills(search.value));
 }
 
 function bindForm() {
@@ -86,7 +75,7 @@ function bindForm() {
       const created = await postJson("/bills", payload);
 
       state.bills.unshift(created);
-      renderBills(document.getElementById("globalSearch")?.value || "");
+      renderBills();
 
       form.reset();
       document.getElementById("billModal")?.classList.add("hidden");
@@ -106,7 +95,6 @@ async function initPage() {
 
     await loadData();
     renderBills();
-    bindSearch();
     bindForm();
   } catch (error) {
     document.getElementById("billsTableBody").innerHTML = `<tr><td colspan="5">Unable to load bills. Check backend connection.</td></tr>`;

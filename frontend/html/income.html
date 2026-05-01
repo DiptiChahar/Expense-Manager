@@ -7,15 +7,16 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/base.css?v=money-v4" />
   <link rel="stylesheet" href="/css/components/sidebar.css" />
-  <link rel="stylesheet" href="/css/components/topbar.css" />
+  <link rel="stylesheet" href="/css/components/topbar.css?v=layout-v2" />
   <link rel="stylesheet" href="/css/components/buttons.css" />
   <link rel="stylesheet" href="/css/components/panel.css" />
   <link rel="stylesheet" href="/css/components/table.css" />
   <link rel="stylesheet" href="/css/components/modal.css" />
-  <link rel="stylesheet" href="/css/pages/income.css" />
-  <script type="module" src="/js/pages/income.js"></script>
+  <link rel="stylesheet" href="/css/pages/income.css?v=money-v4" />
+  <script type="module" src="/js/pages/income.js?v=actions-v1"></script>
+  <script type="module" src="/js/core/ai-assistant-boot.js?v=actions-v1"></script>
 </head>
 <body>
   <div class="app-shell">
@@ -35,7 +36,7 @@
 
         <article class="panel income-summary">
           <p>Total Income</p>
-          <h3 id="incomeTotalPage">$0.00</h3>
+          <h3 id="incomeTotalPage"><span class="money"><span class="money-symbol">₹</span> <span class="money-amount">0</span></span></h3>
         </article>
 
         <article class="panel">

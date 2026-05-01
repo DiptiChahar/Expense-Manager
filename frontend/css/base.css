@@ -102,14 +102,36 @@ select {
 
 .amount-plus {
   color: var(--success);
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Manrope", sans-serif;
   font-weight: 700;
 }
 
 .amount-minus {
   color: var(--danger);
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Manrope", sans-serif;
   font-weight: 700;
+}
+
+.money {
+  display: inline;
+  white-space: nowrap;
+  font-family: "Manrope", sans-serif;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0;
+}
+
+.money-sign {
+  font-weight: 800;
+}
+
+.money-symbol {
+  color: #7c8698;
+  font-weight: 700;
+}
+
+.money-amount {
+  color: currentColor;
+  font-weight: 800;
 }
 
 @keyframes fadeIn {

@@ -1,7 +1,7 @@
 import { api, describeApiError } from "../core/api.js";
 import { renderChart, commonChartOptions } from "../core/charts.js";
-import { escapeHtml, formatMoney } from "../core/format.js";
-import { initLayout } from "../core/layout.js";
+import { escapeHtml, formatMoneyHtml } from "../core/format.js?v=money-v4";
+import { initLayout } from "../core/layout.js?v=layout-v2";
 
 const state = {
   expenses: [],
@@ -94,7 +94,7 @@ function renderBreakdown() {
               <strong>${escapeHtml(line.description)}</strong><br />
               <small>${escapeHtml(line.entry_date || "")}</small>
             </div>
-            <div>${formatMoney(line.amount)}</div>
+            <div>${formatMoneyHtml(line.amount)}</div>
           </div>
           `;
         })
@@ -107,7 +107,7 @@ function renderBreakdown() {
             <span class="expense-icon">${escapeHtml(expenseIconForCategory(item.category))}</span>
             <div>
               <h4>${escapeHtml(item.category)}</h4>
-              <div class="expense-total">${formatMoney(item.total)}</div>
+              <div class="expense-total">${formatMoneyHtml(item.total)}</div>
             </div>
           </div>
           <div class="expense-trend ${trendCls}">${Math.abs(change).toFixed(0)}% ${arrow}</div>
@@ -121,12 +121,28 @@ function renderBreakdown() {
     .join("");
 }
 
+function renderExpensesPage() {
+  renderMonthlyComparison();
+  renderBreakdown();
+}
+
+function bindAssistantRefresh() {
+  window.addEventListener("spendsmart:transactions-changed", async () => {
+    try {
+      await loadData();
+      renderExpensesPage();
+    } catch (error) {
+      console.warn(describeApiError(error, "refresh expenses"));
+    }
+  });
+}
+
 async function initPage() {
   try {
     await initLayout("expenses");
     await loadData();
-    renderMonthlyComparison();
-    renderBreakdown();
+    renderExpensesPage();
+    bindAssistantRefresh();
   } catch (error) {
     document.getElementById("expenseBreakdown").innerHTML = "<p>Unable to load expenses data. Check backend connection.</p>";
     window.alert(describeApiError(error, "load expenses"));

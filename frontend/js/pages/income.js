@@ -1,6 +1,6 @@
 import { api, describeApiError, postJson } from "../core/api.js";
-import { escapeHtml, formatMoney, parseDateValue, textOrNull } from "../core/format.js";
-import { initLayout } from "../core/layout.js";
+import { escapeHtml, formatMoneyHtml, parseDateValue, setMoneyHtml, textOrNull } from "../core/format.js?v=money-v4";
+import { initLayout } from "../core/layout.js?v=layout-v2";
 import { bindModalClose, initModal, setDefaultDateInputs } from "../core/modal.js";
 
 const state = {
@@ -12,9 +12,8 @@ async function loadData() {
   state.income = Array.isArray(income) ? income : [];
 }
 
-function renderIncome(query = "") {
+function renderIncome() {
   const body = document.getElementById("incomeTableBody");
-  const q = query.trim().toLowerCase();
 
   const rows = state.income
     .slice()
@@ -23,17 +22,13 @@ function renderIncome(query = "") {
       const bTime = parseDateValue(b.entry_date)?.getTime() ?? 0;
       return bTime - aTime;
     })
-    .filter((item) => {
-      if (!q) return true;
-      return [item.source, item.description, item.category].filter(Boolean).join(" ").toLowerCase().includes(q);
-    })
     .map((item) => {
       return `
       <tr>
         <td>${escapeHtml(item.entry_date || "")}</td>
         <td>${escapeHtml(item.source || item.category || "Income")}</td>
         <td>${escapeHtml(item.description || "-")}</td>
-        <td class="amount-plus">${formatMoney(item.amount)}</td>
+        <td class="amount-plus">${formatMoneyHtml(item.amount)}</td>
       </tr>
       `;
     });
@@ -41,13 +36,7 @@ function renderIncome(query = "") {
   body.innerHTML = rows.length ? rows.join("") : `<tr><td colspan="4">No income records yet.</td></tr>`;
 
   const total = state.income.reduce((sum, item) => sum + Number(item.amount || 0), 0);
-  document.getElementById("incomeTotalPage").textContent = formatMoney(total);
-}
-
-function bindSearch() {
-  const search = document.getElementById("globalSearch");
-  if (!search) return;
-  search.addEventListener("input", () => renderIncome(search.value));
+  setMoneyHtml(document.getElementById("incomeTotalPage"), total);
 }
 
 function bindForm() {
@@ -69,13 +58,24 @@ function bindForm() {
       const created = await postJson("/income", payload);
 
       state.income.unshift(created);
-      renderIncome(document.getElementById("globalSearch")?.value || "");
+      renderIncome();
 
       form.reset();
       document.getElementById("incomeModal")?.classList.add("hidden");
       setDefaultDateInputs();
     } catch (error) {
       window.alert(describeApiError(error, "save income"));
+    }
+  });
+}
+
+function bindAssistantRefresh() {
+  window.addEventListener("spendsmart:transactions-changed", async () => {
+    try {
+      await loadData();
+      renderIncome();
+    } catch (error) {
+      console.warn(describeApiError(error, "refresh income"));
     }
   });
 }
@@ -89,7 +89,7 @@ async function initPage() {
 
     await loadData();
     renderIncome();
-    bindSearch();
+    bindAssistantRefresh();
     bindForm();
   } catch (error) {
     document.getElementById("incomeTableBody").innerHTML = `<tr><td colspan="4">Unable to load income records. Check backend connection.</td></tr>`;

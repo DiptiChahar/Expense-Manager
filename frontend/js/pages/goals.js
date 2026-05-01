@@ -1,7 +1,7 @@
 import { api, deleteJson, describeApiError, postJson, putJson } from "../core/api.js";
 import { renderChart, commonChartOptions } from "../core/charts.js";
-import { escapeHtml, formatDueDate, formatMoney, parseDateValue, textOrNull } from "../core/format.js";
-import { initLayout } from "../core/layout.js";
+import { escapeHtml, formatDueDate, formatMoneyHtml, parseDateValue, textOrNull } from "../core/format.js?v=money-v4";
+import { initLayout } from "../core/layout.js?v=layout-v2";
 import { bindModalClose, initModal, setDefaultDateInputs } from "../core/modal.js";
 
 const state = {
@@ -72,8 +72,8 @@ function renderGoalSummary() {
     <div class="goal-main">
       <div>
         <p class="goal-label">${escapeHtml(primary.status === "completed" ? "Completed Goal" : "Target Achieved")}</p>
-        <strong>${formatMoney(achieved)}</strong>
-        <p class="goal-sub">${escapeHtml(goalTitle(primary))} target ${formatMoney(target)}</p>
+        <strong>${formatMoneyHtml(achieved)}</strong>
+        <p class="goal-sub">${escapeHtml(goalTitle(primary))} target ${formatMoneyHtml(target)}</p>
         <p class="goal-sub">Due ${escapeHtml(formatDueDate(primary.due_date))}</p>
       </div>
       <div class="goal-meter" style="--progress:${(progress * 3.6).toFixed(0)}deg">
@@ -104,7 +104,7 @@ function renderGoalCards() {
             <h4>${escapeHtml(goalTitle(goal))}</h4>
             <small>${escapeHtml(goal.category || "Savings")} &middot; Due ${escapeHtml(formatDueDate(goal.due_date))}</small>
           </div>
-          <p>${formatMoney(goal.achieved_amount)} <span>/ ${formatMoney(goal.target_amount)}</span></p>
+          <p>${formatMoneyHtml(goal.achieved_amount)} <span class="goal-target">/ ${formatMoneyHtml(goal.target_amount)}</span></p>
           <div class="goal-progress" aria-label="${progress.toFixed(0)}% complete">
             <span style="width:${progress.toFixed(2)}%"></span>
           </div>

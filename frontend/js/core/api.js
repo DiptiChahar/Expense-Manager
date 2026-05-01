@@ -122,7 +122,8 @@ export const api = {
   categoryBreakdown: () => getJson("/statistics/category-breakdown"),
   weeklyComparison: () => getJson("/statistics/weekly-comparison"),
   monthlyComparison: () => getJson("/statistics/monthly-comparison"),
-  expensesBreakdown: () => getJson("/expenses/breakdown")
+  expensesBreakdown: () => getJson("/expenses/breakdown"),
+  aiChat: (message) => postJson("/ai-chat", { message })
 };
 
 export const authApi = {

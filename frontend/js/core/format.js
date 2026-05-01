@@ -1,10 +1,43 @@
-export function formatMoney(value) {
+const CURRENCY_SYMBOL = "₹";
+
+function normalizedNumber(value) {
   const amount = Number(value || 0);
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    maximumFractionDigits: 2
-  }).format(amount);
+  return Number.isFinite(amount) ? amount : 0;
+}
+
+function shouldShowDecimals(amount) {
+  return Math.round((Math.abs(amount) % 1) * 100) !== 0;
+}
+
+function formatAmountNumber(value) {
+  const amount = normalizedNumber(value);
+  const showDecimals = shouldShowDecimals(amount);
+  return new Intl.NumberFormat("en-IN", {
+    minimumFractionDigits: showDecimals ? 2 : 0,
+    maximumFractionDigits: showDecimals ? 2 : 0
+  }).format(Math.abs(amount));
+}
+
+export function formatMoney(value) {
+  const amount = normalizedNumber(value);
+  const sign = amount < 0 ? "-" : "";
+  return `${sign}${CURRENCY_SYMBOL} ${formatAmountNumber(amount)}`;
+}
+
+export function formatMoneyHtml(value, { sign = "" } = {}) {
+  const amount = normalizedNumber(value);
+  const resolvedSign = sign || (amount < 0 ? "-" : "");
+  const signMarkup = resolvedSign
+    ? `<span class="money-sign">${escapeHtml(resolvedSign)}</span> `
+    : "";
+
+  return `<span class="money">${signMarkup}<span class="money-symbol">${CURRENCY_SYMBOL}</span> <span class="money-amount">${escapeHtml(formatAmountNumber(amount))}</span></span>`;
+}
+
+export function setMoneyHtml(element, value, options = {}) {
+  if (element) {
+    element.innerHTML = formatMoneyHtml(value, options);
+  }
 }
 
 export function parseDateValue(value) {

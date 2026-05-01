@@ -1,7 +1,7 @@
 import { api, describeApiError } from "../core/api.js";
 import { renderChart, commonChartOptions } from "../core/charts.js";
-import { escapeHtml, formatMoney, parseDateValue } from "../core/format.js";
-import { initLayout } from "../core/layout.js";
+import { escapeHtml, formatMoneyHtml, parseDateValue, setMoneyHtml } from "../core/format.js?v=money-v4";
+import { initLayout } from "../core/layout.js?v=layout-v2";
 
 const state = {
   summary: null,
@@ -28,9 +28,9 @@ async function loadData() {
 }
 
 function renderMetrics() {
-  document.getElementById("metricIncome").textContent = formatMoney(state.summary?.total_income);
-  document.getElementById("metricExpense").textContent = formatMoney(state.summary?.total_expenses);
-  document.getElementById("metricBalance").textContent = formatMoney(state.summary?.balance);
+  setMoneyHtml(document.getElementById("metricIncome"), state.summary?.total_income);
+  setMoneyHtml(document.getElementById("metricExpense"), state.summary?.total_expenses);
+  setMoneyHtml(document.getElementById("metricBalance"), state.summary?.balance);
   document.getElementById("metricSavings").textContent = `${Number(state.summary?.savings_rate || 0).toFixed(1)}%`;
 }
 
@@ -62,7 +62,7 @@ function renderRecentTransactions() {
           <h4>${escapeHtml(title)}</h4>
           <p>${escapeHtml(subtitle)}</p>
         </div>
-        <div class="${amountClass}">${sign}${formatMoney(item.amount)}</div>
+        <div class="${amountClass}">${formatMoneyHtml(item.amount, { sign })}</div>
       </article>
       `;
     })
@@ -144,15 +144,31 @@ function renderStatisticsChart() {
   });
 }
 
+function renderDashboard() {
+  renderMetrics();
+  renderRecentTransactions();
+  renderExpenseTrendChart();
+  renderCategoryChart();
+  renderStatisticsChart();
+}
+
+function bindAssistantRefresh() {
+  window.addEventListener("spendsmart:transactions-changed", async () => {
+    try {
+      await loadData();
+      renderDashboard();
+    } catch (error) {
+      console.warn(describeApiError(error, "refresh dashboard"));
+    }
+  });
+}
+
 async function initPage() {
   try {
     await initLayout("dashboard");
     await loadData();
-    renderMetrics();
-    renderRecentTransactions();
-    renderExpenseTrendChart();
-    renderCategoryChart();
-    renderStatisticsChart();
+    renderDashboard();
+    bindAssistantRefresh();
   } catch (error) {
     document.getElementById("recentTransactions").innerHTML = "<p>Unable to load dashboard data. Check backend connection.</p>";
     window.alert(describeApiError(error, "load dashboard"));

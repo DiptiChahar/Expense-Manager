@@ -1,6 +1,6 @@
 .topbar {
   display: grid;
-  grid-template-columns: auto 1fr auto auto;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
   gap: 14px;
   padding: 10px 24px;
@@ -23,29 +23,11 @@
 }
 
 .bell-btn {
+  justify-self: end;
   border: 0;
   background: transparent;
   font-size: 20px;
   cursor: pointer;
-}
-
-.search-box {
-  justify-self: end;
-  width: min(360px, 100%);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.64);
-  padding: 10px 12px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.search-box input {
-  border: 0;
-  outline: none;
-  background: transparent;
-  width: 100%;
 }
 
 @media (max-width: 1080px) {
@@ -56,10 +38,6 @@
 
   .topbar {
     grid-template-columns: auto 1fr auto;
-  }
-
-  .search-box {
-    grid-column: 1 / -1;
-    justify-self: stretch;
+    padding: 10px 16px;
   }
 }

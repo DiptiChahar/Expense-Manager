@@ -1,5 +1,6 @@
 import { authApi } from "../core/api.js";
 import { isAuthenticated, setToken } from "../core/auth.js";
+import { initAIAssistant } from "../core/ai-assistant.js?v=actions-v1";
 
 const DASHBOARD_PATH = "/html/dashboard.html";
 
@@ -77,6 +78,8 @@ async function handleSubmit(event) {
 }
 
 function initPage() {
+  initAIAssistant();
+
   if (isAuthenticated()) {
     redirectToDashboard();
     return;

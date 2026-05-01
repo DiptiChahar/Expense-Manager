@@ -66,5 +66,6 @@
   background: #fdfdff;
   padding: 10px 14px;
   font-weight: 800;
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Manrope", sans-serif;
+  font-variant-numeric: tabular-nums;
 }

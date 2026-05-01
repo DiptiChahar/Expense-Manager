@@ -11,5 +11,6 @@
 .income-summary h3 {
   color: #0f9a61;
   font-size: 42px;
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Manrope", sans-serif;
+  font-variant-numeric: tabular-nums;
 }

@@ -20,9 +20,10 @@
 }
 
 .metric-card h3 {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Manrope", sans-serif;
   font-size: clamp(24px, 2vw, 32px);
   line-height: 1.05;
+  font-variant-numeric: tabular-nums;
 }
 
 .metric-icon {

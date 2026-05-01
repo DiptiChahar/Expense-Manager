@@ -52,10 +52,11 @@
 }
 
 .expense-total {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Manrope", sans-serif;
   font-size: 31px;
   line-height: 1;
   margin-top: 2px;
+  font-variant-numeric: tabular-nums;
 }
 
 .expense-trend {

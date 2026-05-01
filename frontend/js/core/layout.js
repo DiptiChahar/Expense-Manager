@@ -1,4 +1,5 @@
 import { getCurrentUser, getUserInitial } from "./auth.js";
+import { initAIAssistant } from "./ai-assistant.js?v=actions-v1";
 
 function prettyDate() {
   const now = new Date();
@@ -75,11 +76,12 @@ async function hydrateSidebarProfile() {
 export async function initLayout(activeKey) {
   await Promise.all([
     mountComponent("/components/sidebar.html", "sidebarMount"),
-    mountComponent("/components/topbar.html", "topbarMount")
+    mountComponent("/components/topbar.html?v=layout-v2", "topbarMount")
   ]);
 
   setActiveNav(activeKey);
   setDateChip();
   bindSidebarMenu();
   await hydrateSidebarProfile();
+  initAIAssistant();
 }
