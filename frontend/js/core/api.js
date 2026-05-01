@@ -107,6 +107,10 @@ export async function putJson(path, payload, options = {}) {
   return requestJson(path, { method: "PUT", payload, ...options });
 }
 
+export async function deleteJson(path, options = {}) {
+  return requestJson(path, { method: "DELETE", ...options });
+}
+
 export const api = {
   summary: () => getJson("/dashboard/summary"),
   transactions: () => getJson("/transactions"),

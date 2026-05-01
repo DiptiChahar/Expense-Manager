@@ -37,7 +37,26 @@
 
 canvas {
   width: 100% !important;
-  max-height: 180px;
+  min-height: 180px;
+  max-height: 240px;
+}
+
+.chart-empty,
+.empty-state {
+  min-height: 180px;
+  border: 1px dashed #cbd3e0;
+  border-radius: 8px;
+  background: #eef2f7;
+  color: #69758b;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.empty-state {
+  min-height: 96px;
 }
 
 @media (max-width: 1360px) {

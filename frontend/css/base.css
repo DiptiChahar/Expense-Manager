@@ -49,6 +49,10 @@ select {
   display: contents;
 }
 
+.hidden {
+  display: none !important;
+}
+
 .app-shell {
   height: 100vh;
   width: min(1860px, 100vw);

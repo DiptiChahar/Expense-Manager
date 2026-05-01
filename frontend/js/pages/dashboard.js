@@ -45,6 +45,11 @@ function renderRecentTransactions() {
     })
     .slice(0, 4);
 
+  if (!recent.length) {
+    holder.innerHTML = `<p class="empty-state">No transactions yet.</p>`;
+    return;
+  }
+
   holder.innerHTML = recent
     .map((item) => {
       const title = item.description || item.category || "Transaction";
@@ -81,7 +86,8 @@ function renderExpenseTrendChart() {
         }
       ]
     },
-    options: commonChartOptions("line")
+    options: commonChartOptions("line"),
+    emptyMessage: "No expense trend data yet."
   });
 }
 
@@ -106,7 +112,8 @@ function renderCategoryChart() {
           position: "bottom"
         }
       }
-    }
+    },
+    emptyMessage: "No category spending yet."
   });
 }
 
@@ -132,7 +139,8 @@ function renderStatisticsChart() {
         }
       ]
     },
-    options: commonChartOptions("bar")
+    options: commonChartOptions("bar"),
+    emptyMessage: "No weekly spending yet."
   });
 }
 

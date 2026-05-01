@@ -3,7 +3,7 @@ from typing import Any
 
 import psycopg
 
-from app.repositories.common import require_row, rows_to_jsonable
+from app.repositories.common import require_row, row_to_jsonable, rows_to_jsonable
 
 
 def list_goals(conn: psycopg.Connection, user_id: str) -> list[dict[str, Any]]:
@@ -41,6 +41,38 @@ def create_goal(conn: psycopg.Connection, user_id: str, payload: dict[str, Any])
     row = cur.fetchone()
 
   return require_row(row, "Failed to create goal")
+
+
+def update_goal(conn: psycopg.Connection, user_id: str, goal_id: str, payload: dict[str, Any]) -> dict[str, Any] | None:
+  query = """
+    UPDATE goals
+    SET
+      name = %s,
+      target_amount = %s,
+      achieved_amount = %s,
+      due_date = %s,
+      category = %s,
+      status = %s
+    WHERE id = %s AND user_id = %s
+    RETURNING id, name, target_amount, achieved_amount, due_date, category, status, created_at
+  """
+  with conn.cursor() as cur:
+    cur.execute(
+      query,
+      (
+        payload["name"],
+        payload["target_amount"],
+        payload["achieved_amount"],
+        payload["due_date"],
+        payload.get("category"),
+        payload["status"],
+        goal_id,
+        user_id,
+      ),
+    )
+    row = cur.fetchone()
+
+  return row_to_jsonable(row)
 
 
 def delete_goal(conn: psycopg.Connection, user_id: str, goal_id: str) -> int:

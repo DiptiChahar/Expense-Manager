@@ -5,9 +5,9 @@ from fastapi import APIRouter, Depends, HTTPException, status
 
 from app.api.dependencies import get_current_user, get_db_conn
 from app.core.constants.messages import GOAL_NOT_FOUND_MESSAGE
-from app.repositories.goals_repository import create_goal, delete_goal, list_goals
+from app.repositories.goals_repository import create_goal, delete_goal, list_goals, update_goal
 from app.schemas.common import OperationStatus
-from app.schemas.goals import GoalCreate, GoalResponse
+from app.schemas.goals import GoalCreate, GoalResponse, GoalUpdate
 
 logger = logging.getLogger(__name__)
 
@@ -27,6 +27,21 @@ def post_goal(
 ) -> dict:
   row = create_goal(conn, user_id, payload.model_dump())
   logger.info("goal_created id=%s", row["id"])
+  return row
+
+
+@router.put("/goals/{goal_id}", response_model=GoalResponse)
+def put_goal(
+  goal_id: str,
+  payload: GoalUpdate,
+  user_id: str = Depends(get_current_user),
+  conn: psycopg.Connection = Depends(get_db_conn),
+) -> dict:
+  row = update_goal(conn, user_id, goal_id, payload.model_dump())
+  if row is None:
+    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=GOAL_NOT_FOUND_MESSAGE)
+
+  logger.info("goal_updated id=%s", row["id"])
   return row
 
 

@@ -3,7 +3,8 @@
 .solid-btn,
 .icon-btn,
 .mini-chip,
-.goal-adjust {
+.goal-adjust,
+.goal-delete {
   cursor: pointer;
 }
 
@@ -63,6 +64,15 @@
   border: 1px solid var(--accent);
   background: #effdfa;
   color: #1f8f87;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-weight: 700;
+}
+
+.goal-delete {
+  border: 1px solid #e7b9c3;
+  background: #fff2f5;
+  color: #b73f5b;
   border-radius: 8px;
   padding: 8px 12px;
   font-weight: 700;

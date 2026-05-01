@@ -13,6 +13,10 @@ class GoalCreate(BaseModel):
   status: Literal["active", "completed", "paused"] = "active"
 
 
+class GoalUpdate(GoalCreate):
+  pass
+
+
 class GoalResponse(BaseModel):
   id: str
   name: str

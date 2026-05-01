@@ -3,6 +3,10 @@
   gap: 10px;
 }
 
+#goalChart {
+  height: 220px !important;
+}
+
 .goal-main {
   display: grid;
   grid-template-columns: 1fr auto;
@@ -61,10 +65,14 @@
   border-radius: 12px;
   background: #ffffff;
   padding: 12px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: grid;
   gap: 8px;
+}
+
+.goal-card-main {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
 }
 
 .goal-card h4 {
@@ -72,9 +80,61 @@
   margin-bottom: 3px;
 }
 
+.goal-card small {
+  color: #6d778b;
+  display: block;
+}
+
 .goal-card p {
   font-family: "Space Grotesk", sans-serif;
-  font-size: 30px;
+  font-size: 24px;
+  line-height: 1.05;
+}
+
+.goal-card p span {
+  color: #778197;
+  font-size: 15px;
+}
+
+.goal-progress {
+  height: 8px;
+  border-radius: 999px;
+  background: #e4e9f1;
+  overflow: hidden;
+}
+
+.goal-progress span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--accent);
+}
+
+.goal-card-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.goal-card-actions button {
+  min-height: 40px;
+}
+
+.empty-state {
+  min-height: 96px;
+  border: 1px dashed #cbd3e0;
+  border-radius: 8px;
+  background: #eef2f7;
+  color: #69758b;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.goal-cards .empty-state {
+  grid-column: 1 / -1;
 }
 
 @media (max-width: 1080px) {

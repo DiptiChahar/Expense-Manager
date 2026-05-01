@@ -65,12 +65,18 @@ function renderMonthlyComparison() {
         }
       ]
     },
-    options: commonChartOptions("bar")
+    options: commonChartOptions("bar"),
+    emptyMessage: "No monthly expense data yet."
   });
 }
 
 function renderBreakdown() {
   const holder = document.getElementById("expenseBreakdown");
+
+  if (!state.expenseBreakdown.length) {
+    holder.innerHTML = `<p class="empty-state">No expense categories yet.</p>`;
+    return;
+  }
 
   holder.innerHTML = state.expenseBreakdown
     .slice(0, 6)

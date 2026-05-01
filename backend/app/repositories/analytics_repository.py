@@ -116,9 +116,10 @@ def get_monthly_comparison(conn: psycopg.Connection, user_id: str) -> list[dict[
 
 def get_expenses_breakdown(conn: psycopg.Connection, user_id: str) -> list[dict[str, Any]]:
   query = """
-    WITH monthly AS (
+    WITH category_totals AS (
       SELECT
         category,
+        SUM(amount) AS total,
         SUM(amount) FILTER (
           WHERE date_trunc('month', entry_date) = date_trunc('month', CURRENT_DATE)
         ) AS current_total,
@@ -132,12 +133,12 @@ def get_expenses_breakdown(conn: psycopg.Connection, user_id: str) -> list[dict[
     )
     SELECT
       category,
-      COALESCE(current_total, 0) AS total,
+      COALESCE(total, 0) AS total,
       CASE
         WHEN COALESCE(previous_total, 0) = 0 THEN 0
         ELSE ROUND(((COALESCE(current_total, 0) - previous_total) / previous_total) * 100, 2)
       END AS change_percent
-    FROM monthly
+    FROM category_totals
     ORDER BY total DESC
     LIMIT %s
   """
